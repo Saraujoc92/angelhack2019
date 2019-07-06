@@ -1,5 +1,6 @@
 import 'package:financial_advisor/screens/login/LoginScreen.dart';
 import 'package:financial_advisor/services/auth.dart';
+import 'package:financial_advisor/services/profile.dart';
 import 'package:flutter/material.dart';
 
 class ProfileConfig extends StatefulWidget {
@@ -9,22 +10,60 @@ class ProfileConfig extends StatefulWidget {
 }
 
 class _ProfileConfigState extends State<ProfileConfig> {
-  var value = false;
+  var alerts = false;
   double percent = 0;
+
+  ProfileService profileService;
+
+  FocusNode _textFocus = new FocusNode();
+  TextEditingController _controller = new TextEditingController();
 
   @override
   void initState() {
+    profileService = ProfileService();
+    _textFocus.addListener(incomeChange);
+    profileService.profile.then(
+      (profile) {
+        _controller.text = profile.data['income'] ?? '';
+        alerts = profile.data['alerts'] ?? false;
+        percent = profile.data['alertpercent'] ?? .3;
+      }
+    );
     super.initState();
+  }
+
+  @override
+  dispose() {
+    _textFocus.dispose();
+    super.dispose();
+  }
+
+  incomeChange() {
+    debugPrint('incomeChange');
+    bool hasFocus = _textFocus.hasFocus;
+    if (hasFocus) return;
+    String value = _controller.text;
+    debugPrint('$value');
+    try {
+      profileService.income = double.parse(value);
+    } catch (error) {
+      _controller.text = '';
+    }
   }
 
   alertConfigChange(value) {
     debugPrint('$value');
-    this.setState(() => this.value = value);
+    profileService.alerts = value;
+    this.setState(() => this.alerts = value);
   }
 
   alertPercentChange(percent) {
     debugPrint('$percent');
     this.setState(() => this.percent = percent);
+  }
+
+  alertPercentSave(percent) {
+    profileService.alertPercentage = percent;
   }
 
   logout() {
@@ -38,24 +77,27 @@ class _ProfileConfigState extends State<ProfileConfig> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return FutureBuilder(
+      future: profileService.profile,
       builder: (context, snapshot) => Column(
         children: <Widget>[
           TextFormField(
+            controller: _controller,
+            focusNode: _textFocus,
             decoration: InputDecoration(labelText: 'Ingreso mensual promedio'),
             keyboardType: TextInputType.number,
-            onSaved: null,
           ),
           Divider(),
           SwitchListTile(
             title: Text('Recibir alertas?'),
-            value: this.value,
+            value: this.alerts,
             onChanged: alertConfigChange,
           ),
           Text('Porcentaje en el cual recibir alertas'),
           Slider.adaptive(
             value: this.percent,
-            onChanged: this.value ? alertPercentChange : null,
+            onChanged: this.alerts ? alertPercentChange : null,
+            onChangeEnd: alertPercentSave,
           ),
           Divider(),
           ListTile(

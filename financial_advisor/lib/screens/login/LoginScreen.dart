@@ -1,5 +1,6 @@
 
 import 'package:financial_advisor/screens/home/home.dart';
+import 'package:financial_advisor/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_advisor/services/auth.dart';
 
@@ -50,6 +51,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           debugPrint('Signed in: $userId');
         } else {
           userId = await _auth.signUp(_email, _password);
+          ProfileService().init();
           _auth.sendEmailVerification();
           _showVerifyEmailSentDialog();
           debugPrint('Signed up user: $userId');
