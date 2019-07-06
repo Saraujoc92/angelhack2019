@@ -1,3 +1,5 @@
+import 'package:financial_advisor/screens/login/LoginScreen.dart';
+import 'package:financial_advisor/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileConfig extends StatefulWidget {
@@ -25,6 +27,15 @@ class _ProfileConfigState extends State<ProfileConfig> {
     this.setState(() => this.percent = percent);
   }
 
+  logout() {
+    Auth.auth.signOut();
+    while (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginSignUpPage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -46,6 +57,11 @@ class _ProfileConfigState extends State<ProfileConfig> {
             value: this.percent,
             onChanged: this.value ? alertPercentChange : null,
           ),
+          Divider(),
+          ListTile(
+            title: Text('Cerrar sesión'),
+            onTap: logout,
+          )
         ],
       ),
     );
