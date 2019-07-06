@@ -1,3 +1,4 @@
+import 'package:financial_advisor/widgets/profile_config.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -9,8 +10,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: child,
+    return Scaffold(
+      appBar: AppBar(title: Text('Profile'),),
+      body: ProfileConfig(),
     );
   }
 }

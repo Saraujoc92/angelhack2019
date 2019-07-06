@@ -1,7 +1,7 @@
 
-import 'package:financial_advisor/screens/SplashScreen.dart';
+import 'package:financial_advisor/screens/home/home.dart';
 import 'package:flutter/material.dart';
-import 'package:financial_advisor/services/authService.dart';
+import 'package:financial_advisor/services/auth.dart';
 
 class LoginSignUpPage extends StatefulWidget {
   LoginSignUpPage();
@@ -76,7 +76,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   }
 
   _onSignedIn() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   }
 
   @override

@@ -23,13 +23,9 @@ class Auth implements BaseAuth {
     return _auth;
   }
 
-  static Future<bool> get isSignedIn async {
-    debugPrint('isSignedIn');
-    var usr = await auth.getCurrentUser();
-    debugPrint('usr: $usr');
-    return  usr != null;
-  }
-
+  static Future<FirebaseUser> get user async => await auth.getCurrentUser();
+  static Future<bool> get isSignedIn async => await user != null;
+  
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<String> signIn(String email, String password) async {

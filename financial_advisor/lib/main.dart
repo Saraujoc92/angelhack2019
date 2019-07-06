@@ -1,6 +1,7 @@
 import 'package:financial_advisor/screens/SplashScreen.dart';
+import 'package:financial_advisor/screens/home/home.dart';
 import 'package:financial_advisor/screens/login/LoginScreen.dart';
-import 'package:financial_advisor/services/authService.dart';
+import 'package:financial_advisor/services/auth.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -30,7 +31,7 @@ class LandingPage extends StatelessWidget {
           return SplashScreen();
         }
         if (snapshot.data) {
-          return SplashScreen();
+          return Home();
         }
         return LoginSignUpPage();
       },
