@@ -92,7 +92,7 @@ class _ProfileConfigState extends State<ProfileConfig> {
           onChanged: alertConfigChange,
         ),
         Text('Porcentaje en el cual recibir alertas'),
-        Slider.adaptive(
+        Slider(
           value: this.percent,
           onChanged: this.alerts ? alertPercentChange : null,
           onChangeEnd: alertPercentSave,

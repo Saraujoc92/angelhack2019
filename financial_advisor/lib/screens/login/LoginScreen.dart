@@ -1,4 +1,3 @@
-
 import 'package:financial_advisor/screens/home/home.dart';
 import 'package:financial_advisor/services/profile.dart';
 import 'package:financial_advisor/services/push.dart';
@@ -61,10 +60,11 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           _isLoading = false;
         });
 
-        if (userId != null && userId.length > 0 && _formMode == FormMode.LOGIN) {
+        if (userId != null &&
+            userId.length > 0 &&
+            _formMode == FormMode.LOGIN) {
           _onSignedIn();
         }
-
       } catch (e) {
         debugPrint('Error: $e');
         setState(() {
@@ -80,7 +80,8 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   _onSignedIn() {
     PushService().init();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Home()));
   }
 
   @override
@@ -110,6 +111,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   @override
   Widget build(BuildContext context) {
     _isIos = Theme.of(context).platform == TargetPlatform.iOS;
+
     return new Scaffold(
         appBar: new AppBar(
           title: new Text('Ingresa a tu cuenta'),
@@ -122,11 +124,14 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         ));
   }
 
-  Widget _showCircularProgress(){
+  Widget _showCircularProgress() {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
-    } return Container(height: 0.0, width: 0.0,);
-
+    }
+    return Container(
+      height: 0.0,
+      width: 0.0,
+    );
   }
 
   void _showVerifyEmailSentDialog() {
@@ -151,9 +156,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     );
   }
 
-  Widget _showBody(){
+  Widget _showBody() {
     return new Container(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(10.0),
         child: new Form(
           key: _formKey,
           child: new ListView(
@@ -162,24 +167,47 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               _showLogo(),
               _showEmailInput(),
               _showPasswordInput(),
-              _showPrimaryButton(),
-              _showSecondaryButton(),
               _showErrorMessage(),
+              _showPrimaryButton(),
+              _showSecondaryMessage(),
+              _showSecondaryButton(),
             ],
           ),
         ));
   }
 
+  Widget _showLogo() {
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
+        child: Image.asset('assets/images/logos/logo-lg.png',
+            height: 200, width: 200));
+  }
+
   Widget _showErrorMessage() {
     if (_errorMessage != null && _errorMessage.length > 0) {
-      return new Text(
-        _errorMessage,
-        style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.red,
-            height: 1.0,
-            fontWeight: FontWeight.w300),
-      );
+      String message = '';
+
+      if (_errorMessage == 'The email address is badly formatted.') {
+        message = 'Correo electrónico inválido.';
+      } else if (_errorMessage == 'The password is invalid or the user does not have a password.') {
+        message = 'Usuario/Contraseña inválidos.';
+      } else if (_errorMessage == 'The email address is already in use by another account.') {
+        message = 'El correo electrónico ya ha sido registrado por otro usuario.';
+      } else {
+        message = _errorMessage;
+      }
+      
+      return new Padding(
+          padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+          child: new Text(
+            message,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 13.0,
+                color: Colors.red,
+                height: 1.0,
+                fontWeight: FontWeight.w500),
+          ));
     } else {
       return new Container(
         height: 0.0,
@@ -187,16 +215,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     }
   }
 
-  Widget _showLogo() {
-    return new Hero(
-      tag: 'hero',
-      child: FlutterLogo(size: 100.0),
-    );
-  }
-
   Widget _showEmailInput() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 100.0, 20.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
@@ -222,7 +243,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   Widget _showPasswordInput() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
         obscureText: true,
@@ -246,29 +267,51 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     );
   }
 
+  Widget _showSecondaryMessage() {
+    return new Padding(
+        padding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
+        child: _formMode == FormMode.LOGIN
+            ? new Text('¿No tienes cuenta?',
+                textAlign: TextAlign.center,
+                style:
+                    new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
+            : new Text('¿Ya estás registrado?',
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                    fontSize: 18.0, fontWeight: FontWeight.w300)));
+  }
+
   Widget _showSecondaryButton() {
-    return new FlatButton(
-      child: _formMode == FormMode.LOGIN
-          ? new Text('Crea una cuenta',
-              style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
-          : new Text('Tienes una cuenta? Ingresa aquí',
-              style:
-                  new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
-      onPressed: _formMode == FormMode.LOGIN
-          ? _changeFormToSignUp
-          : _changeFormToLogin,
-    );
+    return new Padding(
+        padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+        child: FlatButton(
+          child: _formMode == FormMode.LOGIN
+              ? new Text('Crea una cuenta',
+                  style: new TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w800))
+              : new Text('Ingresa aquí',
+                  style: new TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w800)),
+          onPressed: _formMode == FormMode.LOGIN
+              ? _changeFormToSignUp
+              : _changeFormToLogin,
+        ));
   }
 
   Widget _showPrimaryButton() {
     return new Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
+        padding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
         child: SizedBox(
           height: 40.0,
           child: new RaisedButton(
             elevation: 5.0,
-            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-            color: Colors.blue,
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(30.0)),
+            color: Colors.red,
             child: _formMode == FormMode.LOGIN
                 ? new Text('Ingresar',
                     style: new TextStyle(fontSize: 20.0, color: Colors.white))
