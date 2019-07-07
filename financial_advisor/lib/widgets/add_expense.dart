@@ -46,7 +46,7 @@ class _AddExpenseState extends State<AddExpense> {
               FormBuilderValidators.numeric(),
             ],
           ),
-          Spacer(),
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -56,6 +56,7 @@ class _AddExpenseState extends State<AddExpense> {
               tile('Videojuegos'),
             ],
           ),
+          Spacer(),
           RaisedButton(
             child: Text("Calcular"),
             onPressed: () {

@@ -42,4 +42,10 @@ class ProfileService {
       (profile) => profile.updateData({'alertpercent': percent}),
     );
   }
+
+  set payments(List<double> payments) {
+    _profile().then(
+      (profile) => profile.updateData({'payments': payments}),
+    );
+  }
 }
