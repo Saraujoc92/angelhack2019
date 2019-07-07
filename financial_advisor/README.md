@@ -1,16 +1,16 @@
-# financial_advisor
+# CrediTÚ
 
-A new Flutter project.
+A Flutter application for financial calculations.
 
-## Getting Started
+## Angelhack 2019 Bogotá
 
-This project is a starting point for a Flutter application.
+This a submission for the Angelhack hackathon Bogotá 2019.
+It uses a [charting package](https://flutterawesome.com/a-charting-package-for-flutter-supporting-both-android-and-ios/) to display payment projections. If an available income is specified, graphs will be color coded to reflect if spending should be moderated or not in the upcoming months.
 
-A few resources to get you started if this is your first Flutter project:
+It contains information on interest rates, credit, and general information relevant for people beginning their credit life.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Plan your expenses, and enjoy the benefits of a sustainable credit projection.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+
+
