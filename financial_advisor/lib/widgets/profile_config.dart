@@ -79,33 +79,41 @@ class _ProfileConfigState extends State<ProfileConfig> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        TextFormField(
-          controller: _controller,
-          focusNode: _textFocus,
-          decoration:
-              InputDecoration(labelText: 'Dinero libre mensual promedio'),
-          keyboardType: TextInputType.number,
-        ),
-        Divider(),
-        SwitchListTile(
-          title: Text('Recibir alertas?'),
-          value: this.alerts,
-          onChanged: alertConfigChange,
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text('Porcentaje en el cual recibir alertas'),
-        ),
-        Slider(
-          value: this.percent,
-          onChanged: this.alerts ? alertPercentChange : null,
-          onChangeEnd: alertPercentSave,
-        ),
-        Divider(),
-        ListTile(
-          title: Text('Cerrar sesión'),
-          onTap: logout,
-        )
+        Text('Mi Perfil',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 24.0,
+                color: Colors.red,
+                fontWeight: FontWeight.w600)),
+        Divider(color: Colors.red, height: 10.0),
+        Padding(
+            padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 40.0),
+            child: Card(
+                color: Colors.white70,
+                child: Column(children: <Widget>[
+                  SwitchListTile(
+                    title: Text('Recibir alertas?'),
+                    value: this.alerts,
+                    onChanged: alertConfigChange,
+                  ),
+                  Text('Porcentaje en el cual recibir alertas'),
+                  Slider(
+                    value: this.percent,
+                    onChanged: this.alerts ? alertPercentChange : null,
+                    onChangeEnd: alertPercentSave,
+                  )
+                ]))),
+        Padding(
+            padding: EdgeInsets.fromLTRB(20.0, 150.0, 20.0, 20.0),
+            child: RaisedButton(
+                color: Colors.red,
+                child: Text('Cerrar sesión',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w600)),
+                onPressed: logout))
       ],
     );
   }
