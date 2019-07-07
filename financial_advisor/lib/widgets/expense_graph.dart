@@ -12,7 +12,7 @@ class ExpenseGraph extends StatelessWidget {
     var currentDate = DateTime.now();
     if (currentDate.month + index > 12) {
       month = (currentDate.month + index) % 12;
-      year = (currentDate.month + index) ~/ 12;
+      year = currentDate.year + ((currentDate.month + index) ~/ 12);
     } else {
       month = currentDate.month + index;
       year = currentDate.year;

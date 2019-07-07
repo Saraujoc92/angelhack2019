@@ -21,6 +21,7 @@ class ProfileService {
         'income': null,
         'alerts': false,
         'alertpercent': 0.5,
+        'payments': []
       }),
     );
   }

@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:financial_advisor/services/profile.dart';
+
 abstract class CuotationProvider {
   getCardInfo(userId);
   getNewExpense(double cost, int split);
@@ -54,22 +56,25 @@ class MockCuotationProvider extends CuotationProvider {
   }
 
   getPaymentCalendar() async {
-    var cardInfo = await getCardInfo(null);
+    // var cardInfo = await getCardInfo(null);
 
-    double currentCuotation = cardInfo['currentCuotation'] ;
-    double currentDebt = cardInfo['currentDebt'];
+    // double currentCuotation = cardInfo['currentCuotation'] ;
+    // double currentDebt = cardInfo['currentDebt'];
 
-    var paymentCount =
-        currentCuotation > 0 ? (currentDebt / currentCuotation).ceil() : 0;
-    var lastPayment = currentDebt > 0 ? (currentDebt % currentCuotation) : 0.0;
+    // var paymentCount =
+    //     currentCuotation > 0 ? (currentDebt / currentCuotation).ceil() : 0;
+    // var lastPayment = currentDebt > 0 ? (currentDebt % currentCuotation) : 0.0;
 
-    List<double> payments = [];
-    for (var i = 0; i < paymentCount - 1; i++) {
-      payments.add(currentCuotation);
-    }
-    payments.add(lastPayment);
-    print('payments $payments');
-    return payments;
+    // List<double> payments = [];
+    // for (var i = 0; i < paymentCount - 1; i++) {
+    //   payments.add(currentCuotation);
+    // }
+    // payments.add(lastPayment);
+    // print('payments $payments');
+    // return payments;
+
+    var profile = await ProfileService().profile;
+    return profile.data.containsKey('payments') ? List<double>.from(profile.data['payments']) : [];
   }
 
   getSimulationWithCuotationCount(cost, split) async {

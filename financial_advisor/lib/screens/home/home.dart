@@ -73,7 +73,9 @@ class _HomeState extends State<Home> {
     debugPrint('income: $income');
     debugPrint('payments: $payments');
     debugPrint('health: $health');
-    return HealthBar(percentage: (health * 100).toInt());
+    return  Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child:HealthBar(percentage: (health * 100).toInt()),);
   }
 
   Widget paymentGraph() {
