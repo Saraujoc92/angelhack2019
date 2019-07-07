@@ -1,6 +1,7 @@
 
 import 'package:financial_advisor/screens/home/home.dart';
 import 'package:financial_advisor/services/profile.dart';
+import 'package:financial_advisor/services/push.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_advisor/services/auth.dart';
 
@@ -78,7 +79,8 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   }
 
   _onSignedIn() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    PushService().init();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
   }
 
   @override

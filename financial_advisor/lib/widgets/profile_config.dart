@@ -22,13 +22,13 @@ class _ProfileConfigState extends State<ProfileConfig> {
   void initState() {
     profileService = ProfileService();
     _textFocus.addListener(incomeChange);
-    profileService.profile.then(
-      (profile) {
+    profileService.profile.then((profile) {
+      setState(() {
         _controller.text = profile.data['income'] ?? '';
         alerts = profile.data['alerts'] ?? false;
         percent = profile.data['alertpercent'] ?? .3;
-      }
-    );
+      });
+    });
     super.initState();
   }
 
@@ -77,35 +77,32 @@ class _ProfileConfigState extends State<ProfileConfig> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: profileService.profile,
-      builder: (context, snapshot) => Column(
-        children: <Widget>[
-          TextFormField(
-            controller: _controller,
-            focusNode: _textFocus,
-            decoration: InputDecoration(labelText: 'Ingreso mensual promedio'),
-            keyboardType: TextInputType.number,
-          ),
-          Divider(),
-          SwitchListTile(
-            title: Text('Recibir alertas?'),
-            value: this.alerts,
-            onChanged: alertConfigChange,
-          ),
-          Text('Porcentaje en el cual recibir alertas'),
-          Slider.adaptive(
-            value: this.percent,
-            onChanged: this.alerts ? alertPercentChange : null,
-            onChangeEnd: alertPercentSave,
-          ),
-          Divider(),
-          ListTile(
-            title: Text('Cerrar sesión'),
-            onTap: logout,
-          )
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          controller: _controller,
+          focusNode: _textFocus,
+          decoration: InputDecoration(labelText: 'Ingreso mensual promedio'),
+          keyboardType: TextInputType.number,
+        ),
+        Divider(),
+        SwitchListTile(
+          title: Text('Recibir alertas?'),
+          value: this.alerts,
+          onChanged: alertConfigChange,
+        ),
+        Text('Porcentaje en el cual recibir alertas'),
+        Slider.adaptive(
+          value: this.percent,
+          onChanged: this.alerts ? alertPercentChange : null,
+          onChangeEnd: alertPercentSave,
+        ),
+        Divider(),
+        ListTile(
+          title: Text('Cerrar sesión'),
+          onTap: logout,
+        )
+      ],
     );
   }
 }
