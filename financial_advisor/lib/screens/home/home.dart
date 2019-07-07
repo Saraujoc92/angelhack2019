@@ -1,3 +1,4 @@
+import 'package:financial_advisor/screens/forecast/forecast.dart';
 import 'package:financial_advisor/screens/profile/profile.dart';
 import 'package:financial_advisor/widgets/add_expense.dart';
 import 'package:financial_advisor/widgets/expense_graph.dart';
@@ -23,8 +24,8 @@ class _HomeState extends State<Home> {
         ),
       ),
       Center(
-        child: ExpenseGraph(
-          expenseList: [300, 500, 0, 100],
+        child: Forecast(
+          payments: [300, 500, 0, 100,300, 500, 0, 100, 300, 500, 0, 100, 10000],
         ),
       )
     ];

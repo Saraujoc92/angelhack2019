@@ -44,7 +44,7 @@ class _AddExpenseState extends State<AddExpense> {
             ],
           ),
           Spacer(),
-          MaterialButton(
+          RaisedButton(
             child: Text("Calcular"),
             onPressed: () {
               _fbKey.currentState.save();

@@ -12,7 +12,7 @@ class ExpenseGraph extends StatelessWidget {
       new charts.Series<double, int>(
         id: 'Sales',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (double expense, _) => expenseList.indexOf(expense),
+        domainFn: (_, int index) => index,
         measureFn: (double expense, _) => expense,
         data: expenseList,
       )
