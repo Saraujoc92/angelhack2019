@@ -12,10 +12,10 @@ class HealthBar extends StatelessWidget {
         currentValue: percentage,
         size: 25,
         maxValue: 100,
-        changeColorValue: 100,
-        changeProgressColor: Colors.pink,
         backgroundColor: Colors.white,
-        progressColor: Colors.lightBlue,
+        progressColor: percentage >= 70
+            ? Colors.lightGreen
+            : percentage <= 30 ? Colors.red : Colors.orange,
         animatedDuration: const Duration(milliseconds: 300),
         direction: Axis.horizontal,
         verticalDirection: VerticalDirection.up,

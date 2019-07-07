@@ -50,6 +50,14 @@ class _HomeState extends State<Home> {
     });
   }
 
+  addExpenseBg() {
+    if (!addingExpense) return Container();
+    return Opacity(
+      opacity: 0.5,
+      child: Container(color: Colors.black),
+    );
+  }
+
   addExpense() {
     if (!addingExpense) return Container();
 
@@ -66,6 +74,7 @@ class _HomeState extends State<Home> {
   Widget healthbar() {
     if (!(profile != null &&
         profile.containsKey('income') &&
+        profile['income'] != null &&
         profile.containsKey('payments'))) return Container();
     var income = int.parse(profile['income']);
     var payments = profile['payments'];
@@ -76,7 +85,7 @@ class _HomeState extends State<Home> {
     debugPrint('health: $health');
     return Padding(
       padding: EdgeInsets.only(bottom: 20),
-      child: HealthBar(percentage: (health * 100).toInt()),
+      child: HealthBar(percentage: 100 - (health * 100).toInt()),
     );
   }
 
@@ -152,6 +161,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
+            addExpenseBg(),
             addExpense(),
           ],
         ),
