@@ -1,5 +1,6 @@
 import 'package:financial_advisor/screens/SplashScreen.dart';
 import 'package:financial_advisor/screens/forecast/forecast.dart';
+import 'package:financial_advisor/screens/help/help.dart';
 import 'package:financial_advisor/screens/profile/profile.dart';
 import 'package:financial_advisor/screens/promos/promos.dart';
 import 'package:financial_advisor/services/profile.dart';
@@ -115,7 +116,7 @@ class _HomeState extends State<Home> {
       children: <Widget>[
         section(
           'assets/images/info/info.jpeg',
-          (context) => SplashScreen(),
+          (context) => Help(),
         ),
         section(
           'assets/images/info/info2.jpg',
@@ -131,10 +132,10 @@ class _HomeState extends State<Home> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Home'),
+          title: Text('Inicio'),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.account_circle),
               onPressed: goToSettings,
             ),
           ],
