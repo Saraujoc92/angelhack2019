@@ -13,4 +13,9 @@ Plan your expenses, and enjoy the benefits of a sustainable credit projection.
 
 ## Screenshots
 
+![1](https://github.com/Saraujoc92/angelhack2019/blob/master/financial_advisor/screenshots/Screenshot_20190707-114820.png)
+
+![2](https://github.com/Saraujoc92/angelhack2019/blob/master/financial_advisor/screenshots/Screenshot_20190707-114855.png)
+
+![3](https://github.com/Saraujoc92/angelhack2019/blob/master/financial_advisor/screenshots/Screenshot_20190707-114902.png)
 
