@@ -25,33 +25,54 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  Future<bool> _onWillPop() async {
+    debugPrint('onWillPop: $addingExpense');
+    if (addingExpense) {
+      setState(() {
+        addingExpense = false;
+        body.removeLast();
+      });
+      return false;
+    }
+    return true;
+  }
+
   goToSettings() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
   }
 
   addExpense() {
     debugPrint('adding expense');
-    Widget expenseCard = Card(
-      child: Center(child: AddExpense()),
+    Widget expenseCard = Padding(
+      padding: EdgeInsets.fromLTRB(10, 80, 10, 80),
+      child: Card(
+        child: Container(
+          child: AddExpense(),
+        ),
+      ),
     );
     setState(() {
+      addingExpense = true;
       body.add(expenseCard);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
-      body: Stack(
-        children: body,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: addingExpense ? null : addExpense,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+    return new WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Home'),
+        ),
+        body: Stack(
+          children: body,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: addingExpense ? null : addExpense,
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }
