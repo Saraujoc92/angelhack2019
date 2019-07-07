@@ -63,13 +63,15 @@ class _AddExpenseState extends State<AddExpense> {
             ],
           ),
           SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
             children: <Widget>[
               tile('Televisión'),
               tile('Celulares'),
               tile('Mercado'),
               tile('Videojuegos'),
+              tile('Electrodomésticos'),
             ],
           ),
           Padding(

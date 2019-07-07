@@ -26,6 +26,10 @@ class ProfileService {
     );
   }
 
+  reset() {
+    init();
+  }
+
   set income(double income) {
     _profile().then(
       (profile) => profile.updateData({'income': income.toStringAsFixed(0)}),

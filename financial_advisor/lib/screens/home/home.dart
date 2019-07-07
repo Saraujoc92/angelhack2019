@@ -43,13 +43,14 @@ class _HomeState extends State<Home> {
       context,
       MaterialPageRoute(builder: (context) => Profile()),
     ).then((refresh) {
-      if (refresh) _refresh();
+      _refresh();
     });
   }
 
   _refresh() async {
     var profile = await ProfileService().profile;
     setState(() {
+      addingExpense = false;
       this.profile = profile.data;
     });
   }
@@ -66,16 +67,16 @@ class _HomeState extends State<Home> {
     if (!addingExpense) return Container();
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(20, 130, 20, 130),
+      padding: EdgeInsets.fromLTRB(10, 80, 10, 80),
       child: Card(
-          semanticContainer: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Container(
           child: AddExpense(refresh: _refresh),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          elevation: 5,
-          margin: EdgeInsets.all(10)),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 5,
+      ),
     );
   }
 
@@ -83,7 +84,9 @@ class _HomeState extends State<Home> {
     if (!(profile != null &&
         profile.containsKey('income') &&
         profile['income'] != null &&
-        profile.containsKey('payments'))) return Container();
+        profile.containsKey('payments') &&
+        (List<double>.from(profile['payments'])).length > 0))
+      return Container();
     var income = int.parse(profile['income']);
     var payments = profile['payments'];
     var health = payments[0] / income;
@@ -98,7 +101,9 @@ class _HomeState extends State<Home> {
   }
 
   Widget paymentGraph() {
-    if (!(profile != null && profile.containsKey('payments')))
+    if (!(profile != null &&
+        profile.containsKey('payments') &&
+        (List<double>.from(profile['payments'])).length > 0))
       return Container();
     return Padding(
       padding: EdgeInsets.only(bottom: 50),
@@ -131,10 +136,9 @@ class _HomeState extends State<Home> {
               child: Text(
                 text,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 30
-                ),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 30),
               ),
             ),
           ),
@@ -162,6 +166,7 @@ class _HomeState extends State<Home> {
     return new WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('Inicio'),
           actions: <Widget>[
