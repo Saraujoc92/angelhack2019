@@ -19,5 +19,8 @@ void main() {
     print('$expense');
     List<double> expense2 = await provider.getPaymentCalendar();
     print('${expense2.reduce((a, b) => a + b)}');
+
+    List<double> expense3 = await provider.getSimulation(3500000, 24);
+    print('$expense3');
   });
 }
