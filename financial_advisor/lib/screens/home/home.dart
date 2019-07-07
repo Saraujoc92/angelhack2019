@@ -83,13 +83,14 @@ class _HomeState extends State<Home> {
   Widget healthbar() {
     if (!(profile != null &&
         profile.containsKey('income') &&
-        profile['income'] != null &&
-        profile.containsKey('payments') &&
-        (List<double>.from(profile['payments'])).length > 0))
+        profile['income'] != null ))
       return Container();
     var income = int.parse(profile['income']);
-    var payments = profile['payments'];
-    var health = payments[0] / income;
+    
+        
+    var payments = profile.containsKey('payments') ? profile['payments'] : [];
+
+    var health = payments.length > 0 ? payments[0] / income : 0;
 
     debugPrint('income: $income');
     debugPrint('payments: $payments');
