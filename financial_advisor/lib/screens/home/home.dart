@@ -1,5 +1,6 @@
 import 'package:financial_advisor/screens/profile/profile.dart';
 import 'package:financial_advisor/widgets/add_expense.dart';
+import 'package:financial_advisor/widgets/expense_graph.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -21,6 +22,14 @@ class _HomeState extends State<Home> {
           onPressed: goToSettings,
         ),
       ),
+      Center(
+        child: Container(
+          constraints: BoxConstraints(maxHeight: 200, maxWidth: 500),
+          child: ExpenseGraph(
+            expenseList: [300, 500, 0, 100],
+          ),
+        ),
+      )
     ];
     super.initState();
   }

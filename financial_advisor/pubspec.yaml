@@ -30,6 +30,7 @@ dependencies:
   cloud_firestore: ^0.12.6 
   flutter_form_builder: ^3.2.7
   firebase_messaging: ^5.0.4
+  charts_flutter: ^0.6.0
 
 dev_dependencies:
   flutter_test:
