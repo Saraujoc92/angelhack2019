@@ -1,3 +1,4 @@
+import 'package:financial_advisor/screens/SplashScreen.dart';
 import 'package:financial_advisor/screens/forecast/forecast.dart';
 import 'package:financial_advisor/screens/profile/profile.dart';
 import 'package:financial_advisor/services/profile.dart';
@@ -83,10 +84,27 @@ class _HomeState extends State<Home> {
   }
 
   Widget contentButtons() {
-    return Container();
-  }
+    var section = (image, route) => GestureDetector(
+          onTap: () {
+            Navigator.push(context, route);
+          },
+          child: image,
+        );
 
-  addExpenseCard() {}
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        section(
+          Icon(Icons.help, size: 100,),
+          (context) => SplashScreen(),
+        ),
+        section(
+          Icon(Icons.card_giftcard, size: 100,),
+          (context) => SplashScreen(),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +125,11 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.fromLTRB(20, 60, 20, 10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   healthbar(),
                   paymentGraph(),
+    
                   contentButtons(),
                 ],
               ),
