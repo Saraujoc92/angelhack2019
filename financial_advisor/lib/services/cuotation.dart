@@ -3,8 +3,10 @@ import 'dart:math';
 abstract class CuotationProvider {
   getCardInfo(userId);
   getNewExpense(cost, split);
+  getNewExpenseCuotation(cost, cuotation);
   getPaymentCalendar();
-  getSimulation(cost, split);
+  getSimulationWithCuotationCount(cost, split);
+  getSimulationWithCuotation(cost, cuotation);
 }
 
 class MockCuotationProvider extends CuotationProvider {
@@ -23,20 +25,34 @@ class MockCuotationProvider extends CuotationProvider {
 
   @override
   getNewExpense(cost, split) async {
-    // var Interes= 22;//tasa interés
-    // var Capital=3500000;//Prestamo
-    // var Meses=24;//Numero de cuotas
     var cardInfo = await getCardInfo(null);
     var interest = cardInfo['interestRate'];
 
-    var cuotation = cost /
-        ((1 - pow(interest + 1, -split)) / interest); //Cuota fija mensual
+    var ki = ((1 - pow(interest + 1, -split)) / interest);
+    var cuotation = cost / ki; //Cuota fija mensual
     var extraCost = (split * cuotation) - cost; //Interés (final)
 
     return {
       'cuotation': cuotation,
       'extraCost': extraCost,
     };
+  }
+
+  @override
+  getNewExpenseCuotation(cost, cuotation) async {
+
+    var cardInfo = await getCardInfo(null);
+    var interest = cardInfo['interestRate'];
+
+    
+    // var cuotation = cost /
+    //     ((1 - pow(interest + 1, -split)) / interest); //Cuota fija mensual
+    // var extraCost = (split * cuotation) - cost; //Interés (final)
+
+    // return {
+    //   'cuotation': cuotation,
+    //   'extraCost': extraCost,
+    // };    return null;
   }
 
   getPaymentCalendar() async {
@@ -56,7 +72,7 @@ class MockCuotationProvider extends CuotationProvider {
     return payments;
   }
 
-  getSimulation(cost, split) async {
+  getSimulationWithCuotationCount(cost, split) async {
     var paymentCalendar = await getPaymentCalendar();
     var newExpense = await getNewExpense(cost, split);
 
@@ -71,4 +87,11 @@ class MockCuotationProvider extends CuotationProvider {
     }
     return newPaymentCalendar;
   }
+
+  @override
+  getSimulationWithCuotation(cost, cuotation) async {
+    
+    return null;
+  }
+
 }

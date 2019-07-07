@@ -23,11 +23,8 @@ class _HomeState extends State<Home> {
         ),
       ),
       Center(
-        child: Container(
-          constraints: BoxConstraints(maxHeight: 200, maxWidth: 500),
-          child: ExpenseGraph(
-            expenseList: [300, 500, 0, 100],
-          ),
+        child: ExpenseGraph(
+          expenseList: [300, 500, 0, 100],
         ),
       )
     ];

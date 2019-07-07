@@ -20,7 +20,7 @@ void main() {
     List<double> expense2 = await provider.getPaymentCalendar();
     print('${expense2.reduce((a, b) => a + b)}');
 
-    List<double> expense3 = await provider.getSimulation(3500000, 24);
+    List<double> expense3 = await provider.getSimulationWithCuotation(3500000, 24);
     print('$expense3');
   });
 }
