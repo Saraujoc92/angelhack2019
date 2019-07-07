@@ -3,6 +3,8 @@ import 'package:financial_advisor/screens/forecast/forecast.dart';
 import 'package:financial_advisor/services/cuotation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
 
 class AddExpense extends StatefulWidget {
   AddExpense({Key key}) : super(key: key);
@@ -20,16 +22,28 @@ class _AddExpenseState extends State<AddExpense> {
       child: FormBuilder(
         key: _fbKey,
         child: Column(children: <Widget>[
-          Spacer(),
-          Center(
-            child: Text(
-              'Simulador de crédito',
-              style: TextStyle(
-                fontSize: 30,
-              ),
-            ),
-          ),
-          Spacer(),
+          Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 60.0, 0.0, 40.0),
+              child: ClipRect(
+                child: new Stack(
+                  children: [
+                    new Positioned(
+                      top: 2.0,
+                      left: 2.0,
+                      child: new Text(
+                        'Simulador de crédito',
+                        style: Theme.of(context).textTheme.body1.copyWith(
+                            fontSize: 28.0, color: Colors.red.withOpacity(0.5)),
+                      ),
+                    ),
+                    new BackdropFilter(
+                      filter: new ui.ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                      child: new Text('Simulador de crédito',
+                          style: TextStyle(fontSize: 28.0, color: Colors.red)),
+                    ),
+                  ],
+                ),
+              )),
           FormBuilderTextField(
             attribute: "cost",
             keyboardType: TextInputType.number,
@@ -50,23 +64,25 @@ class _AddExpenseState extends State<AddExpense> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              tile('TV'),
-              tile('Celular'),
+              tile('Televisión'),
+              tile('Celulares'),
               tile('Mercado'),
               tile('Videojuegos'),
             ],
           ),
-          Spacer(),
-          RaisedButton(
-            child: Text("Calcular"),
-            onPressed: () {
-              _fbKey.currentState.save();
-              if (_fbKey.currentState.validate()) {
-                _calculateCuotation(_fbKey.currentState.value);
-              }
-            },
-          ),
-          Spacer(),
+          Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
+              child: RaisedButton(
+                color: Colors.red,
+                child: Text('CALCULAR CRÉDITO',
+                    style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  _fbKey.currentState.save();
+                  if (_fbKey.currentState.validate()) {
+                    _calculateCuotation(_fbKey.currentState.value);
+                  }
+                },
+              ))
         ]),
       ),
     );
@@ -76,8 +92,7 @@ class _AddExpenseState extends State<AddExpense> {
     return GestureDetector(
       onTap: () => setState(() => this.category = category),
       child: Badge(
-        badgeColor:
-            this.category == category ? Colors.lightBlueAccent : Colors.blue,
+        badgeColor: this.category == category ? Colors.lightBlue : Colors.blue,
         shape: BadgeShape.square,
         borderRadius: 20,
         toAnimate: false,
@@ -99,8 +114,8 @@ class _AddExpenseState extends State<AddExpense> {
       context,
       MaterialPageRoute(
         builder: (c) => Forecast(
-          payments: simulationWithCuotation,
-        ),
+              payments: simulationWithCuotation,
+            ),
       ),
     );
   }

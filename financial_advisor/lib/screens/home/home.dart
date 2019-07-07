@@ -62,12 +62,16 @@ class _HomeState extends State<Home> {
     if (!addingExpense) return Container();
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(10, 80, 10, 80),
+      padding: EdgeInsets.fromLTRB(20, 130, 20, 130),
       child: Card(
-        child: Container(
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           child: AddExpense(),
-        ),
-      ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          elevation: 5,
+          margin: EdgeInsets.all(10)),
     );
   }
 
