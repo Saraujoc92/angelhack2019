@@ -98,24 +98,27 @@ class _HomeState extends State<Home> {
               MaterialPageRoute(builder: route),
             );
           },
-          child: image,
+          child: new Container(
+            width: 150.0,
+            height: 150.0,
+            decoration: new BoxDecoration(
+                shape: BoxShape.circle,
+                image: new DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(image),
+                )),
+          ),
         );
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         section(
-          Icon(
-            Icons.help,
-            size: 100,
-          ),
+          'assets/images/info/info.jpeg',
           (context) => SplashScreen(),
         ),
         section(
-          Icon(
-            Icons.card_giftcard,
-            size: 100,
-          ),
+          'assets/images/info/info2.jpg',
           (context) => PromoScreen(),
         ),
       ],
