@@ -73,9 +73,10 @@ class _HomeState extends State<Home> {
     debugPrint('income: $income');
     debugPrint('payments: $payments');
     debugPrint('health: $health');
-    return  Padding(
+    return Padding(
       padding: EdgeInsets.only(bottom: 20),
-      child:HealthBar(percentage: (health * 100).toInt()),);
+      child: HealthBar(percentage: (health * 100).toInt()),
+    );
   }
 
   Widget paymentGraph() {
@@ -83,9 +84,9 @@ class _HomeState extends State<Home> {
       return Container();
     return Padding(
       padding: EdgeInsets.only(bottom: 50),
-      child:ExpenseGraph(
-      expensesList: [List<double>.from(profile['payments'])],
-    ),
+      child: ExpenseGraph(
+        expensesList: [List<double>.from(profile['payments'])],
+      ),
     );
   }
 
@@ -128,19 +129,18 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Home'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: goToSettings,
+            ),
+          ],
         ),
         body: Stack(
           children: [
-            Container(
-              child: IconButton(
-                icon: Icon(Icons.settings),
-                onPressed: goToSettings,
-              ),
-            ),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 60, 20, 10),
               child: Column(
-                
                 children: <Widget>[
                   healthbar(),
                   paymentGraph(),
