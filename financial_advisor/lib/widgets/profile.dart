@@ -18,11 +18,24 @@ class HealthBar extends StatelessWidget {
             ),
           ),
           SizedBox(height: 25),
+          percentage > 1
+              ? Container()
+              : Align(
+                alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Sin fondos',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: Colors.red
+                            // fontSize: 25,
+                            ),
+                  ),
+                ),
+          SizedBox(height: 5),
           FAProgressBar(
-            currentValue: percentage,
+            currentValue: percentage > 1 ? percentage : 0,
             size: 25,
             maxValue: 100,
-            backgroundColor: Colors.white,
+            backgroundColor: percentage < 1 ? Colors.grey : Colors.white,
             progressColor: percentage >= 70
                 ? Colors.lightGreen
                 : percentage <= 30 ? Colors.red : Colors.deepOrange,
