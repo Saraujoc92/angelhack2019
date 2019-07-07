@@ -51,8 +51,9 @@ class _ForecastState extends State<Forecast> {
           ),
           Spacer(),
           RaisedButton(
+            color: Colors.red,
             onPressed: _programPayments,
-            child: Text('Programar compra'),
+            child: Text('Programar compra', style: TextStyle(color: Colors.white),),
           ),
           Spacer(),
         ],

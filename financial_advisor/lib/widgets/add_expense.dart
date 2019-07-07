@@ -76,8 +76,8 @@ class _AddExpenseState extends State<AddExpense> {
           ),
           Padding(
               padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
-              child: RaisedButton(
-                color: Colors.red,
+                child: RaisedButton(
+                  color: Colors.red,
                 child: Text('CALCULAR CRÉDITO',
                     style: TextStyle(color: Colors.white)),
                 onPressed: () {
@@ -96,7 +96,7 @@ class _AddExpenseState extends State<AddExpense> {
     return GestureDetector(
       onTap: () => setState(() => this.category = category),
       child: Badge(
-        badgeColor: this.category == category ? Colors.lightBlue : Colors.blue,
+        badgeColor: this.category == category ? Colors.deepOrangeAccent: Colors.grey,
         shape: BadgeShape.square,
         borderRadius: 20,
         toAnimate: false,

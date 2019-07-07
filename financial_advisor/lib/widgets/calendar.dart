@@ -59,23 +59,35 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Icon(Icons.calendar_today),
+        Icon(
+          Icons.calendar_today,
+          size: 50,
+        ),
         Row(
           children: <Widget>[
             Spacer(),
             IconButton(
-              icon: Icon(Icons.navigate_before),
+              icon: Icon(
+                Icons.navigate_before,
+                size: 50,
+              ),
               onPressed: _monthIndex > 0 ? _prevMonth : null,
             ),
             SizedBox(
               width: 5.0,
             ),
-            Text(month(currentDate)),
+            Text(
+              month(currentDate),
+              style: TextStyle(color: Colors.orange, fontSize: 50),
+            ),
             SizedBox(
               width: 5.0,
             ),
             IconButton(
-              icon: Icon(Icons.navigate_next),
+              icon: Icon(
+                Icons.navigate_next,
+                size: 50,
+              ),
               onPressed: _monthIndex < (widget.payments.length - 1)
                   ? _nextMonth
                   : null,
@@ -83,7 +95,13 @@ class _CalendarState extends State<Calendar> {
             Spacer()
           ],
         ),
-        Text('\$ ${widget.payments[_monthIndex].toStringAsFixed(2)}'),
+        Text(
+          '\$ ${widget.payments[_monthIndex].toStringAsFixed(2)}',
+          style: TextStyle(
+            color: Colors.orange,
+            fontSize: 40,
+          ),
+        ),
       ],
     );
   }
