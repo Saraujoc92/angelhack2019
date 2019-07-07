@@ -2,7 +2,7 @@ import 'dart:math';
 
 abstract class CuotationProvider {
   getCardInfo(userId);
-  getNewExpense(cost, split);
+  getNewExpense(double cost, int split);
   getNewExpenseCuotation(cost, cuotation);
   getPaymentCalendar();
   getSimulationWithCuotationCount(cost, split);
@@ -14,8 +14,8 @@ class MockCuotationProvider extends CuotationProvider {
   Future getCardInfo(userId) async {
     var cardInfo = {
       'paymentDate': null,
-      'currentCuotation': 281500.0,
-      'currentDebt': 3500000.0,
+      'currentCuotation': 0.0,
+      'currentDebt': 0.0,
       'interestType': null,
       'interestPayment': null,
       'interestRate': .22 / 12, // anual
@@ -24,7 +24,7 @@ class MockCuotationProvider extends CuotationProvider {
   }
 
   @override
-  getNewExpense(cost, split) async {
+  getNewExpense(double cost, int split) async {
     var cardInfo = await getCardInfo(null);
     var interest = cardInfo['interestRate'];
 
@@ -40,11 +40,9 @@ class MockCuotationProvider extends CuotationProvider {
 
   @override
   getNewExpenseCuotation(cost, cuotation) async {
-
     var cardInfo = await getCardInfo(null);
     var interest = cardInfo['interestRate'];
 
-    
     // var cuotation = cost /
     //     ((1 - pow(interest + 1, -split)) / interest); //Cuota fija mensual
     // var extraCost = (split * cuotation) - cost; //Interés (final)
@@ -58,17 +56,19 @@ class MockCuotationProvider extends CuotationProvider {
   getPaymentCalendar() async {
     var cardInfo = await getCardInfo(null);
 
-    double currentCuotation = cardInfo['currentCuotation'];
+    double currentCuotation = cardInfo['currentCuotation'] ;
     double currentDebt = cardInfo['currentDebt'];
 
-    var paymentCount = (currentDebt / currentCuotation).ceil();
-    var lastPayment = (currentDebt % currentCuotation);
+    var paymentCount =
+        currentCuotation > 0 ? (currentDebt / currentCuotation).ceil() : 0;
+    var lastPayment = currentDebt > 0 ? (currentDebt % currentCuotation) : 0.0;
 
     List<double> payments = [];
     for (var i = 0; i < paymentCount - 1; i++) {
       payments.add(currentCuotation);
     }
     payments.add(lastPayment);
+    print('payments $payments');
     return payments;
   }
 
@@ -85,13 +85,12 @@ class MockCuotationProvider extends CuotationProvider {
       if (i < split) value += newExpense['cuotation'];
       newPaymentCalendar.add(value);
     }
+    print('newPaymentCalendar $newPaymentCalendar');
     return newPaymentCalendar;
   }
 
   @override
   getSimulationWithCuotation(cost, cuotation) async {
-    
     return null;
   }
-
 }

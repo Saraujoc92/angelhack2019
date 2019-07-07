@@ -24,9 +24,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       Center(
-        child: Forecast(
-          payments: [300, 500, 0, 100,300, 500, 0, 100, 300, 500, 0, 100, 10000],
-        ),
+        child: Container(),
       )
     ];
     super.initState();
