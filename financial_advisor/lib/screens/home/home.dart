@@ -79,8 +79,11 @@ class _HomeState extends State<Home> {
   Widget paymentGraph() {
     if (!(profile != null && profile.containsKey('payments')))
       return Container();
-    return ExpenseGraph(
+    return Padding(
+      padding: EdgeInsets.only(bottom: 50),
+      child:ExpenseGraph(
       expensesList: [List<double>.from(profile['payments'])],
+    ),
     );
   }
 
@@ -135,7 +138,7 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.fromLTRB(20, 60, 20, 10),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                
                 children: <Widget>[
                   healthbar(),
                   paymentGraph(),
