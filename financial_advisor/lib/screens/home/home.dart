@@ -1,6 +1,7 @@
 import 'package:financial_advisor/screens/SplashScreen.dart';
 import 'package:financial_advisor/screens/forecast/forecast.dart';
 import 'package:financial_advisor/screens/profile/profile.dart';
+import 'package:financial_advisor/screens/promos/promos.dart';
 import 'package:financial_advisor/services/profile.dart';
 import 'package:financial_advisor/widgets/add_expense.dart';
 import 'package:financial_advisor/widgets/expense_graph.dart';
@@ -86,7 +87,10 @@ class _HomeState extends State<Home> {
   Widget contentButtons() {
     var section = (image, route) => GestureDetector(
           onTap: () {
-            Navigator.push(context, route);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: route),
+            );
           },
           child: image,
         );
@@ -95,12 +99,18 @@ class _HomeState extends State<Home> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         section(
-          Icon(Icons.help, size: 100,),
+          Icon(
+            Icons.help,
+            size: 100,
+          ),
           (context) => SplashScreen(),
         ),
         section(
-          Icon(Icons.card_giftcard, size: 100,),
-          (context) => SplashScreen(),
+          Icon(
+            Icons.card_giftcard,
+            size: 100,
+          ),
+          (context) => PromoScreen(),
         ),
       ],
     );
@@ -129,7 +139,6 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   healthbar(),
                   paymentGraph(),
-    
                   contentButtons(),
                 ],
               ),
