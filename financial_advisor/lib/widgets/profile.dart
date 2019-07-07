@@ -8,18 +8,30 @@ class HealthBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FAProgressBar(
-        currentValue: percentage,
-        size: 25,
-        maxValue: 100,
-        backgroundColor: Colors.white,
-        progressColor: percentage >= 70
-            ? Colors.lightGreen
-            : percentage <= 30 ? Colors.red : Colors.orange,
-        animatedDuration: const Duration(milliseconds: 300),
-        direction: Axis.horizontal,
-        verticalDirection: VerticalDirection.up,
-        displayText: '%',
+      child: Column(
+        children: [
+          Text(
+            'Disponibilidad',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+            ),
+          ),
+          SizedBox(height: 25),
+          FAProgressBar(
+            currentValue: percentage,
+            size: 25,
+            maxValue: 100,
+            backgroundColor: Colors.white,
+            progressColor: percentage >= 70
+                ? Colors.lightGreen
+                : percentage <= 30 ? Colors.red : Colors.deepOrange,
+            animatedDuration: const Duration(milliseconds: 300),
+            direction: Axis.horizontal,
+            verticalDirection: VerticalDirection.up,
+            displayText: '%',
+          ),
+        ],
       ),
     );
   }

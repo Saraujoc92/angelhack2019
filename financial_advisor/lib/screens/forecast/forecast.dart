@@ -13,6 +13,25 @@ class Forecast extends StatefulWidget {
 }
 
 class _ForecastState extends State<Forecast> {
+  double income;
+
+  @override
+  void initState() {
+    income = 0;
+    _getIncome();
+    super.initState();
+  }
+
+  _getIncome() async {
+    var profile = await ProfileService().profile;
+    setState(() {
+      income =
+          (profile.data.containsKey('income') && profile.data['income'] != null)
+              ? double.parse(profile.data['income'])
+              : null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +43,7 @@ class _ForecastState extends State<Forecast> {
           Spacer(),
           ExpenseGraph(
             expensesList: [widget.payments],
+            income: income,
           ),
           SizedBox(height: 20),
           Calendar(

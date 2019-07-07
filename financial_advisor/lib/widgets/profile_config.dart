@@ -82,7 +82,8 @@ class _ProfileConfigState extends State<ProfileConfig> {
         TextFormField(
           controller: _controller,
           focusNode: _textFocus,
-          decoration: InputDecoration(labelText: 'Ingreso mensual promedio'),
+          decoration:
+              InputDecoration(labelText: 'Dinero libre mensual promedio'),
           keyboardType: TextInputType.number,
         ),
         Divider(),
@@ -91,7 +92,10 @@ class _ProfileConfigState extends State<ProfileConfig> {
           value: this.alerts,
           onChanged: alertConfigChange,
         ),
-        Text('Porcentaje en el cual recibir alertas'),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text('Porcentaje en el cual recibir alertas'),
+        ),
         Slider(
           value: this.percent,
           onChanged: this.alerts ? alertPercentChange : null,

@@ -1,3 +1,4 @@
+import 'package:financial_advisor/services/push.dart';
 import 'package:financial_advisor/widgets/profile_config.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,12 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+  @override
+  void initState() {
+    PushService().printToken();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

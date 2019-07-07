@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class AddExpense extends StatefulWidget {
-  AddExpense({Key key}) : super(key: key);
+  final dynamic refresh;
+
+  AddExpense({this.refresh});
   _AddExpenseState createState() => _AddExpenseState();
 }
 
@@ -102,6 +104,8 @@ class _AddExpenseState extends State<AddExpense> {
           payments: simulationWithCuotation,
         ),
       ),
-    );
+    ).then((refresh) {
+      if (refresh) widget.refresh();
+    });
   }
 }

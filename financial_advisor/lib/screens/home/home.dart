@@ -39,8 +39,12 @@ class _HomeState extends State<Home> {
   }
 
   goToSettings() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()))
-        .then((refresh) => _refresh());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Profile()),
+    ).then((refresh) {
+      if (refresh) _refresh();
+    });
   }
 
   _refresh() async {
@@ -65,7 +69,7 @@ class _HomeState extends State<Home> {
       padding: EdgeInsets.fromLTRB(10, 80, 10, 80),
       child: Card(
         child: Container(
-          child: AddExpense(),
+          child: AddExpense(refresh: _refresh),
         ),
       ),
     );
@@ -95,13 +99,15 @@ class _HomeState extends State<Home> {
     return Padding(
       padding: EdgeInsets.only(bottom: 50),
       child: ExpenseGraph(
-        expensesList: [List<double>.from(profile['payments'])],
-      ),
+          expensesList: [List<double>.from(profile['payments'])],
+          income: (profile.containsKey('income') && profile['income'] != null)
+              ? double.parse(profile['income'])
+              : null),
     );
   }
 
   Widget contentButtons() {
-    var section = (image, route) => GestureDetector(
+    var section = (image, text, route) => GestureDetector(
           onTap: () {
             Navigator.push(
               context,
@@ -117,6 +123,16 @@ class _HomeState extends State<Home> {
                   fit: BoxFit.cover,
                   image: AssetImage(image),
                 )),
+            child: Center(
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 30
+                ),
+              ),
+            ),
           ),
         );
 
@@ -125,10 +141,12 @@ class _HomeState extends State<Home> {
       children: <Widget>[
         section(
           'assets/images/info/info.jpeg',
+          'Ayudas',
           (context) => Help(),
         ),
         section(
           'assets/images/info/info2.jpg',
+          'Promos',
           (context) => PromoScreen(),
         ),
       ],
